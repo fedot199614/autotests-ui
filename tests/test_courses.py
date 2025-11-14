@@ -18,11 +18,11 @@ def test_empty_courses_list(courses_list_page: CoursesListPage):
 @pytest.mark.regression
 def test_create_course(courses_list_page: CoursesListPage, create_course_page: CreateCoursePage):
     create_course_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses/create")
-    create_course_page.check_visible_create_course_title()
-    create_course_page.check_disabled_create_course_button()
+    create_course_page.create_course_toolbar.check_visible_create_course_title()
+    create_course_page.create_course_toolbar.check_disabled_create_course_button()
     create_course_page.image_upload_widget.check_visible_image_preview_empty_view()
     create_course_page.image_upload_widget.check_visible_image_upload_empty_view()
-    create_course_page.check_visible_create_course_form(
+    create_course_page.create_course_form.check_visible(
         title="",
         estimated_time="",
         description="",
@@ -38,7 +38,7 @@ def test_create_course(courses_list_page: CoursesListPage, create_course_page: C
     create_course_page.image_upload_widget.check_visible_image_preview_upladed_view()
     create_course_page.image_upload_widget.check_visible_image_upload_upladed_view()
 
-    create_course_page.fill_create_course_form(
+    create_course_page.create_course_form.fill(
         title = "Playwright",
         estimated_time = "2 weeks",
         description = "Playwright",
@@ -46,7 +46,7 @@ def test_create_course(courses_list_page: CoursesListPage, create_course_page: C
         min_score = "10"
     )
 
-    create_course_page.click_create_course_button()
+    create_course_page.create_course_toolbar.click_create_course_button()
     courses_list_page.wait_for_load()
 
     courses_list_page.toolbar_view.check_visible()

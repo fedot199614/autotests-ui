@@ -24,7 +24,9 @@ def initialize_browser_state(playwright: Playwright) -> None:
     registration_username_input.fill("username")
     registration_password_input.fill("password")
     registration_button.click()
-
+    
+    page.wait_for_load_state("networkidle")
+    
     page.context.storage_state(path="browser-state.json")
     browser.close()
 
