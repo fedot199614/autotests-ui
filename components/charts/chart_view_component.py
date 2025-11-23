@@ -6,14 +6,15 @@ from elements.text import Text
 
 
 class ChartViewComponent(BaseComponent):
-    def __init__(self, page: Page, identifier: str, chart_type: str):
+    def __init__(self, page: Page, identifier: str, chart_type: str, chart_title: str):
         super().__init__(page)
 
+        self.chart_title = chart_title
         self.title = Text(page, f'{identifier}-widget-title-text', 'Title')
         self.chart = Image(page, f'{identifier}-{chart_type}-chart', 'Chart')
 
-    def check_visible(self, title: str):
+    def check_visible(self):
         self.title.check_visible()
-        self.title.check_have_text(title)
+        self.title.check_have_text(self.chart_title)
 
         self.chart.check_visible()
