@@ -23,3 +23,7 @@ class CreateCourseToolbarViewComponent(BaseComponent):
     def check_visible_create_course_title(self):
         self.create_course_title.check_visible()
         self.create_course_title.check_have_text('Create course')
+
+    def check_visible_update_course_title(self):
+        self.create_course_title.check_visible()
+        self.create_course_title.check_have_text('Update course')    

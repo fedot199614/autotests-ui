@@ -1,3 +1,4 @@
+import re
 from components.authentication.login_form_component import LoginFormComponent
 from elements.button import Button
 from elements.link import Link
@@ -18,4 +19,11 @@ class LoginPage(BasePage):
 
     def check_wrong_email_or_password_alert_visible(self):
         self.wrong_email_or_password_alert.check_visible()
-        self.wrong_email_or_password_alert.check_have_text('Wrong email or password')  
+        self.wrong_email_or_password_alert.check_have_text('Wrong email or password')
+
+    def click_registration_link(self):
+        self.registration_link.click()    
+
+    # ToDo заменить на денамическую сборку ссылки из базового урла и пути
+    def check_current_url(self):
+        return super().check_current_url(re.compile(".*/#/auth/login"))          

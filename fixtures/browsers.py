@@ -1,5 +1,7 @@
 import pytest
 from playwright.sync_api import Playwright, Page
+from fixtures.pages import registration_page
+from pages.authentication.registration_page import RegistrationPage
 
 @pytest.fixture
 def chromium_page(playwright: Playwright):  
@@ -13,21 +15,15 @@ def initialize_browser_state(playwright: Playwright) -> None:
     context = browser.new_context()
     page = context.new_page()
 
-    page.goto("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/registration")
+    registration_page = RegistrationPage(page=page)
+    registration_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/registration")
 
-    registration_email_input = page.get_by_test_id('registration-form-email-input').locator('input')
-    registration_username_input = page.get_by_test_id('registration-form-username-input').locator('input')
-    registration_password_input = page.get_by_test_id('registration-form-password-input').locator('input')
-    registration_button = page.get_by_test_id('registration-page-registration-button')
-
-    registration_email_input.fill("user.name@gmail.com")
-    registration_username_input.fill("username")
-    registration_password_input.fill("password")
-    registration_button.click()
+    registration_page.registration_form.fill(email='user.name@gmail.com', username='username', password='password')
+    registration_page.click_registration_button()
     
-    page.wait_for_load_state("networkidle")
+    registration_page.page.wait_for_load_state("networkidle")
     
-    page.context.storage_state(path="browser-state.json")
+    context.storage_state(path="browser-state.json")
     browser.close()
 
 @pytest.fixture(scope="function")

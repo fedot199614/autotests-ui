@@ -1,5 +1,4 @@
-import re
-from playwright.sync_api import Page, expect
+from playwright.sync_api import Page
 
 from components.courses.create_course_exercise_form_component import CreateCourseExerciseFormComponent
 from components.courses.create_course_form_component import CreateCourseFormComponent
@@ -8,6 +7,8 @@ from components.navigation.navbar_component import NavbarComponent
 from components.views.empty_view_component import EmptyViewComponent
 from components.views.image_upload_widget_component import ImageUploadWidgetComponent
 from pages.base_page import BasePage
+from elements.text import Text
+from elements.button import Button
 
 
 class CreateCoursePage(BasePage):
@@ -21,15 +22,15 @@ class CreateCoursePage(BasePage):
         self.create_course_form = CreateCourseFormComponent(page)
         self.create_course_toolbar = CreateCourseToolbarViewComponent(page)
 
-        self.exercises_title = page.get_by_test_id('create-course-exercises-box-toolbar-title-text')
-        self.create_exercise_button = page.get_by_test_id('create-course-exercises-box-toolbar-create-exercise-button')
+        self.exercises_title = Text(page, 'create-course-exercises-box-toolbar-title-text', 'Create Course Exercises Title')
+        self.create_exercise_button = Button(page, 'create-course-exercises-box-toolbar-create-exercise-button', 'Create Course Create Exercise Button')
 
     def check_visible_exercises_title(self):
-        expect(self.exercises_title).to_be_visible()
-        expect(self.exercises_title).to_have_text('Exercises')
+        self.exercises_title.check_visible()
+        self.exercises_title.check_have_text('Exercises')
 
     def check_visible_create_exercise_button(self):
-        expect(self.create_exercise_button).to_be_visible()
+        self.create_exercise_button.check_visible()
 
     def click_create_exercise_button(self):
         self.create_exercise_button.click()
