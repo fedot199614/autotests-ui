@@ -28,12 +28,9 @@ login_test_data = {
 @allure.suite(AllureFeature.AUTHENTICATION)
 @allure.sub_suite(AllureStory.AUTHORIZATION)
 class TestAuthorization:
-    @pytest.mark.parametrize("email, password", login_test_data.values(), ids = [
-        f"{key}: {data}"
-        for key, data in login_test_data.items()
-    ])
     @allure.title("User login with wrong email or password")
     @allure.severity(Severity.CRITICAL)
+    @pytest.mark.parametrize("email, password", login_test_data.values())
     def test_wrong_email_or_password_authorization(self, login_page: LoginPage, email: str, password: str):
         login_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/login")
         login_page.login_form.fill(email=email, password=password)
