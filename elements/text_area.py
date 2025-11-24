@@ -4,6 +4,10 @@ from elements.base_element import BaseElement
 
 
 class TextArea(BaseElement):
+    @property
+    def type_of(self) -> str:
+        return "textarea"
+
     def get_locator(self, nth: int = 0, **kwargs) -> Locator:
         return super().get_locator(nth, **kwargs).locator('textarea').first
 
