@@ -46,11 +46,11 @@ class TestCourses:
         create_course_page.image_upload_widget.check_visible_image_preview_empty_view()
         create_course_page.image_upload_widget.check_visible_image_upload_empty_view()
         create_course_page.create_course_form.check_visible(
-            title=course_data.get("empty_course_data").get("title"),
-            estimated_time=course_data.get("empty_course_data").get("estimated_time"),
-            description=course_data.get("empty_course_data").get("description"),
-            max_score=course_data.get("empty_course_data").get("max_score"),
-            min_score=course_data.get("empty_course_data").get("min_score")
+            title=course_data.get("empty_course_data", {}).get("title"),
+            estimated_time=course_data.get("empty_course_data", {}).get("estimated_time"),
+            description=course_data.get("empty_course_data", {}).get("description"),
+            max_score=course_data.get("empty_course_data", {}).get("max_score"),
+            min_score=course_data.get("empty_course_data", {}).get("min_score")
         )
         create_course_page.check_visible_exercises_title()
         create_course_page.check_visible_create_exercise_button()
@@ -62,11 +62,11 @@ class TestCourses:
         create_course_page.image_upload_widget.check_visible_image_upload_upladed_view()
 
         create_course_page.create_course_form.fill(
-            title = course_data.get("default_course_data").get("title"),
-            estimated_time = course_data.get("default_course_data").get("estimated_time"),
-            description = course_data.get("default_course_data").get("description"),
-            max_score = course_data.get("default_course_data").get("max_score"),
-            min_score = course_data.get("default_course_data").get("min_score")
+            title = course_data.get("default_course_data", {}).get("title"),
+            estimated_time = course_data.get("default_course_data", {}).get("estimated_time"),
+            description = course_data.get("default_course_data", {}).get("description"),
+            max_score = course_data.get("default_course_data", {}).get("max_score"),
+            min_score = course_data.get("default_course_data", {}).get("min_score")
         )
 
         create_course_page.create_course_toolbar.click_create_course_button()
@@ -75,10 +75,10 @@ class TestCourses:
         courses_list_page.toolbar_view.check_visible()
         courses_list_page.course_view.check_visible(
             index=0,
-            title=course_data.get("default_course_data").get("title"),
-            estimated_time=course_data.get("default_course_data").get("estimated_time"),
-            max_score=course_data.get("default_course_data").get("max_score"),
-            min_score=course_data.get("default_course_data").get("min_score")
+            title=course_data.get("default_course_data", {}).get("title"),
+            estimated_time=course_data.get("default_course_data", {}).get("estimated_time"),
+            max_score=course_data.get("default_course_data", {}).get("max_score"),
+            min_score=course_data.get("default_course_data", {}).get("min_score")
         )
 
     @allure.title("Edit course")
@@ -89,11 +89,11 @@ class TestCourses:
 
         create_course_page.image_upload_widget.upload_preview_image("./testdata/files/image.png")
         create_course_page.create_course_form.fill(
-            title = course_data.get("default_course_data").get("title"),
-            estimated_time = course_data.get("default_course_data").get("estimated_time"),
-            description = course_data.get("default_course_data").get("description"),
-            max_score = course_data.get("default_course_data").get("max_score"),
-            min_score = course_data.get("default_course_data").get("min_score")
+            title = course_data.get("default_course_data", {}).get("title"),
+            estimated_time = course_data.get("default_course_data", {}).get("estimated_time"),
+            description = course_data.get("default_course_data", {}).get("description"),
+            max_score = course_data.get("default_course_data", {}).get("max_score"),
+            min_score = course_data.get("default_course_data", {}).get("min_score")
         )
 
         create_course_page.create_course_toolbar.click_create_course_button()
@@ -102,21 +102,21 @@ class TestCourses:
         courses_list_page.toolbar_view.check_visible()
         courses_list_page.course_view.check_visible(
             index=0,
-            title=course_data.get("default_course_data").get("title"),
-            max_score=course_data.get("default_course_data").get("max_score"),
-            min_score=course_data.get("default_course_data").get("min_score"),
-            estimated_time=course_data.get("default_course_data").get("estimated_time")
+            title=course_data.get("default_course_data", {}).get("title"),
+            max_score=course_data.get("default_course_data", {}).get("max_score"),
+            min_score=course_data.get("default_course_data", {}).get("min_score"),
+            estimated_time=course_data.get("default_course_data", {}).get("estimated_time")
         )
 
         courses_list_page.course_view.edit_course(index=0)
         create_course_page.create_course_toolbar.check_visible_update_course_title()
 
         create_course_page.create_course_form.fill(
-            title = course_data.get("default_course_data").get("title"),
-            estimated_time = course_data.get("default_course_data").get("estimated_time"),
-            description = course_data.get("default_course_data").get("description"),
-            max_score = course_data.get("default_course_data").get("max_score"),
-            min_score = course_data.get("default_course_data").get("min_score")
+            title = course_data.get("default_course_data", {}).get("title"),
+            estimated_time = course_data.get("default_course_data", {}).get("estimated_time"),
+            description = course_data.get("default_course_data", {}).get("description"),
+            max_score = course_data.get("default_course_data", {}).get("max_score"),
+            min_score = course_data.get("default_course_data", {}).get("min_score")
         )
 
         create_course_page.create_course_toolbar.click_create_course_button()
@@ -125,8 +125,8 @@ class TestCourses:
         courses_list_page.toolbar_view.check_visible()
         courses_list_page.course_view.check_visible(
             index=0,
-            title=course_data.get("default_course_data").get("title"),
-            estimated_time=course_data.get("default_course_data").get("estimated_time"),
-            max_score=course_data.get("default_course_data").get("max_score"),
-            min_score=course_data.get("default_course_data").get("min_score")
+            title=course_data.get("default_course_data", {}).get("title"),
+            estimated_time=course_data.get("default_course_data", {}).get("estimated_time"),
+            max_score=course_data.get("default_course_data", {}).get("max_score"),
+            min_score=course_data.get("default_course_data", {}).get("min_score")
         )

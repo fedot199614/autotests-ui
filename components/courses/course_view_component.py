@@ -36,6 +36,7 @@ class CourseViewComponent(BaseComponent):
         self.estimated_time_text.check_have_text(
             f"Estimated time: {estimated_time}", nth=index
         )
-
+        
+    @allure.step('Edit course at index "{index}"')
     def edit_course(self, index: int):
         self.menu.click_edit(index)
