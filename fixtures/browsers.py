@@ -1,5 +1,4 @@
 from collections.abc import Generator
-import allure
 import pytest
 from playwright.sync_api import Playwright, Page
 from pages.authentication.registration_page import RegistrationPage
@@ -8,9 +7,9 @@ from tools.playwright.pages import initialize_playwright_page
 
 from config import settings
 
-@pytest.fixture
-def chromium_page(request: SubRequest, playwright: Playwright) -> Generator[Page, None, None]:
-    yield from initialize_playwright_page(playwright, test_name=request.node.name)
+@pytest.fixture(params=settings.browsers)
+def browser_page(request: SubRequest, playwright: Playwright) -> Generator[Page, None, None]:
+    yield from initialize_playwright_page(playwright, test_name=request.node.name, browser_type=request.param)
 
 @pytest.fixture(scope="session")
 def initialize_browser_state(playwright: Playwright) -> None:
@@ -29,10 +28,11 @@ def initialize_browser_state(playwright: Playwright) -> None:
     context.storage_state(path=str(settings.browser_state_file))
     browser.close()
 
-@pytest.fixture(scope="function")
-def chromium_page_with_state(initialize_browser_state, request: SubRequest, playwright: Playwright) -> Generator[Page, None, None]:
+@pytest.fixture(params=settings.browsers)
+def browser_page_with_state(initialize_browser_state, request: SubRequest, playwright: Playwright) -> Generator[Page, None, None]:
     yield from initialize_playwright_page(
         playwright,
         test_name=request.node.name,
-        storage_state=str(settings.browser_state_file)
+        storage_state=str(settings.browser_state_file),
+        browser_type=request.param
     )
