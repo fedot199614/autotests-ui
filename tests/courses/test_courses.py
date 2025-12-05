@@ -9,6 +9,8 @@ from tools.allure.features import AllureFeature
 from tools.allure.stories import AllureStory
 from tools.allure.tags import AllureTag
 
+from config import settings
+
 #ToDo: заменить на дата класс с pydantic, параметризовать тест
 course_data: dict = {
     "empty_course_data": {"title": "", "estimated_time": "", "description": "", "max_score": "0", "min_score": "0"},
@@ -30,17 +32,17 @@ class TestCourses:
     @allure.title("Check displaying of empty courses list")
     @allure.severity(Severity.NORMAL)
     def test_empty_courses_list(self, courses_list_page: CoursesListPage):
-        courses_list_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses")
+        courses_list_page.visit()
     
         courses_list_page.toolbar_view.check_visible()
         courses_list_page.check_visible_empty_view()
-        courses_list_page.navbar.check_visible("username")
+        courses_list_page.navbar.check_visible(settings.test_user.username)
         courses_list_page.sidebar.check_visible()
 
     @allure.title("Create course")
     @allure.severity(Severity.CRITICAL)
     def test_create_course(self, courses_list_page: CoursesListPage, create_course_page: CreateCoursePage):
-        create_course_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses/create")
+        create_course_page.visit()
         create_course_page.create_course_toolbar.check_visible_create_course_title()
         create_course_page.create_course_toolbar.check_disabled_create_course_button()
         create_course_page.image_upload_widget.check_visible_image_preview_empty_view()
@@ -57,7 +59,7 @@ class TestCourses:
         create_course_page.check_visible_exercises_empty_view()
 
 
-        create_course_page.image_upload_widget.upload_preview_image("./testdata/files/image.png")
+        create_course_page.image_upload_widget.upload_preview_image(settings.get_image_upload_path())
         create_course_page.image_upload_widget.check_visible_image_preview_upladed_view()
         create_course_page.image_upload_widget.check_visible_image_upload_upladed_view()
 
@@ -84,10 +86,10 @@ class TestCourses:
     @allure.title("Edit course")
     @allure.severity(Severity.CRITICAL)
     def test_edit_course(self, courses_list_page: CoursesListPage, create_course_page: CreateCoursePage):
-        create_course_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses/create")
+        create_course_page.visit()
         create_course_page.create_course_toolbar.check_visible_create_course_title()
 
-        create_course_page.image_upload_widget.upload_preview_image("./testdata/files/image.png")
+        create_course_page.image_upload_widget.upload_preview_image(settings.get_image_upload_path())
         create_course_page.create_course_form.fill(
             title = course_data.get("default_course_data", {}).get("title"),
             estimated_time = course_data.get("default_course_data", {}).get("estimated_time"),

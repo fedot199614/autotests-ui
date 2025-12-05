@@ -4,10 +4,11 @@ from components.dashboard.dashboard_toolbar_view_component import DashboardToolb
 from components.navigation.navbar_component import NavbarComponent
 from components.navigation.sidebar_component import SidebarComponent
 from pages.base_page import BasePage
+from tools.routes import AppRoute
 
 class DashboardPage(BasePage):
     def __init__(self, page: Page):
-        super().__init__(page)
+        super().__init__(page, path=AppRoute.DASHBOARD)
 
         self.navbar = NavbarComponent(page)
         self.sidebar = SidebarComponent(page)

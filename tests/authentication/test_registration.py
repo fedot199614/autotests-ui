@@ -8,6 +8,7 @@ from tools.allure.epics import AllureEpic
 from tools.allure.features import AllureFeature
 from tools.allure.stories import AllureStory
 from tools.allure.tags import AllureTag
+from config import settings
 
 
 @pytest.mark.registration
@@ -24,15 +25,15 @@ class TestRegistration:
     @allure.title("Registration with correct email, username and password")
     @allure.severity(Severity.CRITICAL)
     def test_successful_registration(self,registration_page: RegistrationPage, dashboard_page: DashboardPage):
-        registration_page.visit('https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/registration')
+        registration_page.visit()
 
         registration_page.registration_form.fill(
-            username="username",
-            email="user@gmail.com",
-            password="password"
+            username=settings.test_user.username,
+            email=settings.test_user.email,
+            password=settings.test_user.password
         )
 
         registration_page.click_registration_button()
 
         dashboard_page.wait_for_load()
-        dashboard_page.navbar.check_visible("username")
+        dashboard_page.navbar.check_visible(settings.test_user.username)

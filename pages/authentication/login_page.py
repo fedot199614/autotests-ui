@@ -7,10 +7,11 @@ from elements.link import Link
 from pages.base_page import BasePage
 from playwright.sync_api import Page
 from elements.text import Text
+from tools.routes import AppRoute
 
 class LoginPage(BasePage):
     def __init__(self, page: Page):
-        super().__init__(page)
+        super().__init__(page, path=AppRoute.LOGIN)
         self.login_form = LoginFormComponent(page)
         self.wrong_email_or_password_alert = Text(page, 'login-page-wrong-email-or-password-alert', 'Wrong Email or Password Alert')
         self.registration_link = Link(page, 'login-page-registration-link', 'Registration Link')

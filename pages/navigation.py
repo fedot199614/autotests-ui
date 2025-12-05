@@ -2,17 +2,14 @@ import allure
 from playwright.sync_api import Page, expect
 from typing import Pattern
 
-#ToDo: добавить алюр шаги
 class Navigation:
-    def __init__(self, page: Page, path: str, protocol: str = 'https://'):
+    def __init__(self, page: Page, path: str):
         self.page = page
         self.path = path
-        self.protocol = protocol
     
-    #ToDO: убрать параметр url, использовать self.path и self.protocol + domain из env параметра
-    def visit(self, url: str):
-        with allure.step(f'Opening the url "{url}"'):
-            self.page.goto(url, wait_until='domcontentloaded')
+    def visit(self):
+        with allure.step(f'Opening the url "{self.path}"'):
+            self.page.goto(self.path, wait_until='domcontentloaded')
 
     def reload(self):
         with allure.step(f'Reloading page with url "{self.page.url}"'):

@@ -9,11 +9,12 @@ from components.views.image_upload_widget_component import ImageUploadWidgetComp
 from pages.base_page import BasePage
 from elements.text import Text
 from elements.button import Button
+from tools.routes import AppRoute
 
 
 class CreateCoursePage(BasePage):
     def __init__(self, page: Page):
-        super().__init__(page)
+        super().__init__(page, path=AppRoute.CREATE_COURSE)
 
         self.exercises_empty_view = EmptyViewComponent(page, 'create-course-exercises')
         self.image_upload_widget = ImageUploadWidgetComponent(page, 'create-course-preview')
